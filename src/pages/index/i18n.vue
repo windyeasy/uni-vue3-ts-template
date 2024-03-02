@@ -14,7 +14,11 @@
     <view class="text-green-500 mt-12">切换语言 </view>
     <view class="uni-list">
       <radio-group @change="radioChange" class="radio-group">
-        <label class="uni-list-cell uni-list-cell-pd" v-for="item in languages" :key="item.value">
+        <label
+          class="uni-list-cell uni-list-cell-pd"
+          v-for="item in languages"
+          :key="item.value"
+        >
           <view>
             <radio :value="item.value" :checked="item.value === current" />
           </view>

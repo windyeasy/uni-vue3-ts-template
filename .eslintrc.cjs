@@ -67,6 +67,9 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-use-before-define': 'off',
     'no-unused-expressions': 'off',
+    'no-param-reassign': 'off',
+    'no-useless-constructor': 'off',
+    'no-unused-vars': 'off',
   },
   // eslint-import-resolver-typescript 插件，@see https://www.npmjs.com/package/eslint-import-resolver-typescript
   settings: {
