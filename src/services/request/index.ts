@@ -1,4 +1,5 @@
-import type { WdRequestConstructorConfig } from './type'
+import * as qs from 'qs'
+import type { WdRequestOptions, WdRequestConstructorConfig } from './type'
 
 class WdRequest {
   config: WdRequestConstructorConfig
@@ -7,9 +8,20 @@ class WdRequest {
     this.config = config
   }
 
-  request<T = any>(config: UniApp.RequestOptions) {
+  request<T = any>(config: WdRequestOptions) {
     return new Promise<T>((reslove, reject) => {
       config.url = this.config.baseUrl + config.url
+
+      // 解析query方法
+      if (config.query) {
+        const queryStr = qs.stringify(config.query)
+        if (config.url.includes('?')) {
+          config.url += `&${queryStr}`
+        } else {
+          config.url += `?${queryStr}`
+        }
+      }
+
       // 实现请求拦截
       if (this.config?.interceptor?.requestSuccessFn) {
         config = this.config.interceptor.requestSuccessFn(config)
@@ -30,6 +42,13 @@ class WdRequest {
           reject(error)
         },
       })
+    })
+  }
+
+  post<T = any>(config: WdRequestOptions) {
+    return this.request<T>({
+      method: 'POST',
+      ...config,
     })
   }
 }
