@@ -49,7 +49,7 @@ const languages = [
   },
 ]
 
-const radioChange = (evt) => {
+const radioChange = (evt: any) => {
   // console.log(evt)
   current.value = evt.detail.value
   // 下面2句缺一不可！！！
