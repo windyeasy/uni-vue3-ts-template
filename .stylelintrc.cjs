@@ -46,5 +46,6 @@ module.exports = {
     'custom-property-empty-line-before': 'never',
     'no-empty-source': null,
     'scss/comment-no-empty': null,
+    'selector-class-pattern': null,
   },
 }
