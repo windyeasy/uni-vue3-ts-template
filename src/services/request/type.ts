@@ -1,5 +1,5 @@
 interface IInterceptor {
-  requestSuccessFn?: (config: UniApp.RequestOptions) => UniApp.RequestOptions
+  requestSuccessFn?: (config: WdRequestOptions) => UniApp.RequestOptions
   responseSuccessFn?: (config: any) => any
 }
 
@@ -10,8 +10,12 @@ export interface WdRequestConstructorConfig {
   interceptor?: IInterceptor
 }
 
-// 请求配置
-export interface WdRequestOptions extends UniApp.RequestOptions {
+/**
+ * 请求配置接口
+ * 通过Omit过滤掉url类型，重写url类型
+ */
+export type WdRequestOptions = Omit<UniApp.RequestOptions, 'url'> & {
   interceptor?: IInterceptor
   query?: Record<string, any>
+  url?: string // 重写url类型
 }

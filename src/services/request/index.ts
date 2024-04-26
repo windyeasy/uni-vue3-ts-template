@@ -30,7 +30,8 @@ class WdRequest {
         timeout: this.config.timeout, // 延迟时间
         dataType: 'json',
         responseType: 'json',
-        ...config, // 可以通过重写配置覆盖原有配置
+        url: config.url as string,
+        ...config,
         success: (res: any) => {
           // 实现响应拦截
           if (this.config?.interceptor?.responseSuccessFn) {
@@ -45,9 +46,41 @@ class WdRequest {
     })
   }
 
-  post<T = any>(config: WdRequestOptions) {
+  post<T = any>(
+    url: string,
+    data?: WdRequestOptions['data'],
+    config?: WdRequestOptions,
+  ) {
     return this.request<T>({
+      url,
       method: 'POST',
+      data,
+      ...config,
+    })
+  }
+
+  delete<T = any>(
+    url: string,
+    data?: WdRequestOptions['data'],
+    config?: WdRequestOptions,
+  ) {
+    return this.request<T>({
+      url,
+      method: 'DELETE',
+      data,
+      ...config,
+    })
+  }
+
+  get<T = any>(
+    url: string,
+    data?: WdRequestOptions['data'],
+    config?: WdRequestOptions,
+  ) {
+    return this.request<T>({
+      url,
+      method: 'GET',
+      data,
       ...config,
     })
   }
