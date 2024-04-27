@@ -99,6 +99,7 @@
     "@iconify-json/carbon": "^1.1.27",
     "@ttou/uv-typings": "^1.10.2",
     "@types/node": "^20.11.5",
+    "@types/qs": "^6.9.15",
     "@types/wechat-miniprogram": "^3.4.7",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
