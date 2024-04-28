@@ -1,5 +1,9 @@
 import * as qs from 'qs'
-import type { WdRequestOptions, WdRequestConstructorConfig } from './type'
+import type {
+  WdRequestOptions,
+  WdRequestConstructorConfig,
+  WdUploadFileOptions,
+} from './type'
 
 class WdRequest {
   config: WdRequestConstructorConfig
@@ -8,9 +12,16 @@ class WdRequest {
     this.config = config
   }
 
+  private _fetchUrl(url: string) {
+    if (url.includes('http')) {
+      return url
+    }
+    return this.config.baseUrl + url
+  }
+
   request<T = any>(config: WdRequestOptions) {
     return new Promise<T>((reslove, reject) => {
-      config.url = this.config.baseUrl + config.url
+      config.url = this._fetchUrl(config.url)
 
       // 解析query方法
       if (config.query) {
@@ -22,9 +33,13 @@ class WdRequest {
         }
       }
 
-      // 实现请求拦截
+      // 实现全局请求拦截
       if (this.config?.interceptor?.requestSuccessFn) {
         config = this.config.interceptor.requestSuccessFn(config)
+      }
+      // 实现局部请求拦截
+      if (config.interceptor?.requestSuccessFn) {
+        config = config.interceptor.requestSuccessFn(config)
       }
       uni.request({
         timeout: this.config.timeout, // 延迟时间
@@ -33,9 +48,13 @@ class WdRequest {
         url: config.url as string,
         ...config,
         success: (res: any) => {
-          // 实现响应拦截
+          // 实现全局响应拦截
           if (this.config?.interceptor?.responseSuccessFn) {
             res = this.config.interceptor.responseSuccessFn(res)
+          }
+          // 实现局部响应拦截
+          if (config?.interceptor?.responseSuccessFn) {
+            res = config.interceptor.responseSuccessFn(res)
           }
           reslove(res)
         },
@@ -46,7 +65,33 @@ class WdRequest {
     })
   }
 
+  get<T = any>(
+    url: string,
+    data?: WdRequestOptions['data'],
+    config?: WdRequestOptions,
+  ) {
+    return this.request<T>({
+      url,
+      method: 'GET',
+      data,
+      ...config,
+    })
+  }
+
   post<T = any>(
+    url: string,
+    data?: WdRequestOptions['data'],
+    config?: WdRequestOptions,
+  ) {
+    return this.request<T>({
+      url,
+      method: 'POST',
+      data,
+      ...config,
+    })
+  }
+
+  put<T = any>(
     url: string,
     data?: WdRequestOptions['data'],
     config?: WdRequestOptions,
@@ -72,16 +117,34 @@ class WdRequest {
     })
   }
 
-  get<T = any>(
-    url: string,
-    data?: WdRequestOptions['data'],
-    config?: WdRequestOptions,
-  ) {
-    return this.request<T>({
-      url,
-      method: 'GET',
-      data,
-      ...config,
+  // 文件上传
+  uploadFile<T = any>(config: WdUploadFileOptions) {
+    return new Promise<T>((reslove, reject) => {
+      // 实现全局请求拦截
+      if (this.config?.interceptor?.requestSuccessFn) {
+        config = this.config.interceptor.requestSuccessFn(config)
+      }
+      // 实现局部请求拦截
+      if (config.interceptor?.requestSuccessFn) {
+        config = config.interceptor.requestSuccessFn(config)
+      }
+      uni.uploadFile({
+        ...config,
+        success: (res: any) => {
+          // 实现全局响应拦截
+          if (this.config?.interceptor?.responseSuccessFn) {
+            res = this.config.interceptor.responseSuccessFn(res)
+          }
+          // 实现局部响应拦截
+          if (config?.interceptor?.responseSuccessFn) {
+            res = config.interceptor.responseSuccessFn(res)
+          }
+          reslove(res)
+        },
+        fail: (error) => {
+          reject(error)
+        },
+      })
     })
   }
 }

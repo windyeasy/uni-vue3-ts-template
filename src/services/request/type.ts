@@ -1,12 +1,12 @@
 interface IInterceptor {
-  requestSuccessFn?: (config: WdRequestOptions) => UniApp.RequestOptions
+  requestSuccessFn?: (config: WdUploadFileOptions | WdRequestOptions) => any
   responseSuccessFn?: (config: any) => any
 }
 
 // 构造函数的配置
 export interface WdRequestConstructorConfig {
-  baseUrl: string
-  timeout: number
+  baseUrl?: string
+  timeout?: number
   interceptor?: IInterceptor
 }
 
@@ -18,4 +18,8 @@ export type WdRequestOptions = Omit<UniApp.RequestOptions, 'url'> & {
   interceptor?: IInterceptor
   query?: Record<string, any>
   url?: string // 重写url类型
+}
+
+export type WdUploadFileOptions = UniApp.UploadFileOption & {
+  interceptor?: IInterceptor
 }
