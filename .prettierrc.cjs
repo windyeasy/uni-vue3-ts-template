@@ -6,7 +6,7 @@ module.exports = {
   useTabs: false,
   semi: false,
   trailingComma: 'all',
-  endOfLine: 'auto',
+  endOfLine: 'lf',
   overrides: [
     {
       files: '*.json',

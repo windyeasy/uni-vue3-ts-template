@@ -55,7 +55,6 @@ module.exports = {
     ],
     // 只允许1个默认导出，关闭，否则不能随意export xxx
     'import/prefer-default-export': ['off'],
-    'no-console': ['off'],
     // 'no-unused-vars': ['off'],
     // '@typescript-eslint/no-unused-vars': ['off'],
     // 解决vite.config.ts报错问题

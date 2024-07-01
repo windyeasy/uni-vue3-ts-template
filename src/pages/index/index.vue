@@ -7,22 +7,77 @@
   },
 }
 </route>
-<template>
-  <view
-    class="bg-white h-full overflow-hidden pt-2 px-4"
-    :style="{ marginTop: safeAreaInsets?.top + 'px' }"
-  >
-    首页
-  </view>
-</template>
-
 <script lang="ts" setup>
-// 获取屏幕边界到安全区域距离
-const { safeAreaInsets } = uni.getSystemInfoSync()
+const content = ref<string>('')
+setTimeout(() => {
+  content.value = `
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+      123中噶大啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊, 11111111111111111111
+    `
+}, 3000)
 </script>
 
-<style>
-.main-title-color {
-  color: #d14328;
-}
-</style>
+<template>
+  <div class="home">
+    <div>
+      {{ content }}
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nisi
+      expedita nesciunt iste ratione quas, hic repellat sequi temporibus
+      cupiditate unde tempore nemo odio autem voluptas. Hic ipsum debitis
+      nostrum.
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nisi
+      expedita nesciunt iste ratione quas, hic repellat sequi temporibus
+      cupiditate unde tempore nemo odio autem voluptas. Hic ipsum debitis
+      nostrum.
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nisi
+      expedita nesciunt iste ratione quas, hic repellat sequi temporibus
+      cupiditate unde tempore nemo odio autem voluptas. Hic ipsum debitis
+      nostrum.
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nisi
+      expedita nesciunt iste ratione quas, hic repellat sequi temporibus
+      cupiditate unde tempore nemo odio autem voluptas. Hic ipsum debitis
+      nostrum.
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nisi
+      expedita nesciunt iste ratione quas, hic repellat sequi temporibus
+      cupiditate unde tempore nemo odio autem voluptas. Hic ipsum debitis
+      nostrum.
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nisi
+      expedita nesciunt iste ratione quas, hic repellat sequi temporibus
+      cupiditate unde tempore nemo odio autem voluptas. Hic ipsum debitis
+      nostrum.
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped></style>
