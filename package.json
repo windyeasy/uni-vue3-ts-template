@@ -46,19 +46,19 @@
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
     "prepare": "node ./shell/postinstall.js & git init && husky install ",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint --cache . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "test": "vitest"
   },
   "lint-staged": {
     "**/*.{html,vue,ts,cjs,json,md}": [
-      "prettier --write"
+      "prettier --cache --write"
     ],
     "**/*.{vue,js,ts,jsx,tsx}": [
-      "eslint --fix"
+      "eslint --cache --fix"
     ],
     "**/*.{vue,css,scss,html}": [
-      "stylelint --fix"
+      "stylelint --cache --fix"
     ]
   },
   "resolutions": {
