@@ -8,15 +8,19 @@ import type {
 class WdRequest {
   config: WdRequestConstructorConfig
 
+  url?: string
+
   constructor(config: WdRequestConstructorConfig) {
     this.config = config
   }
 
   private _fetchUrl(url: string) {
     if (url.includes('http')) {
-      return url
+      this.url = url
+    } else {
+      this.url = this.config.baseUrl + url
     }
-    return this.config.baseUrl + url
+    return this.url
   }
 
   request<T = any>(config: WdRequestOptions) {
@@ -48,15 +52,20 @@ class WdRequest {
         url: config.url as string,
         ...config,
         success: (res: any) => {
-          // 实现全局响应拦截
-          if (this.config?.interceptor?.responseSuccessFn) {
-            res = this.config.interceptor.responseSuccessFn(res)
+          // 有可能在执行的过程出现异常后抛出异常
+          try {
+            // 实现全局响应拦截
+            if (this.config?.interceptor?.responseSuccessFn) {
+              res = this.config.interceptor.responseSuccessFn(res)
+            }
+            // 实现局部响应拦截
+            if (config?.interceptor?.responseSuccessFn) {
+              res = config.interceptor.responseSuccessFn(res)
+            }
+            reslove(res)
+          } catch (error) {
+            reject(error)
           }
-          // 实现局部响应拦截
-          if (config?.interceptor?.responseSuccessFn) {
-            res = config.interceptor.responseSuccessFn(res)
-          }
-          reslove(res)
         },
         fail: (error) => {
           reject(error)
