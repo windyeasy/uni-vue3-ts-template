@@ -1,6 +1,7 @@
 interface IInterceptor {
   requestSuccessFn?: (config: WdUploadFileOptions | WdRequestOptions) => any
   responseSuccessFn?: (config: any) => any
+  responseErrorFn?: (config: any) => any
 }
 
 // 构造函数的配置

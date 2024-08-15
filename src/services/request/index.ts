@@ -68,6 +68,12 @@ class WdRequest {
           }
         },
         fail: (error) => {
+          if (this.config?.interceptor?.responseErrorFn) {
+            error = this.config.interceptor.responseErrorFn(error)
+          }
+          if (config?.interceptor?.responseErrorFn) {
+            error = config?.interceptor?.responseErrorFn(error)
+          }
           reject(error)
         },
       })
@@ -151,6 +157,12 @@ class WdRequest {
           resolve(res)
         },
         fail: (error) => {
+          if (this.config?.interceptor?.responseErrorFn) {
+            error = this.config.interceptor.responseErrorFn(error)
+          }
+          if (config?.interceptor?.responseErrorFn) {
+            error = config?.interceptor?.responseErrorFn(error)
+          }
           reject(error)
         },
       })
