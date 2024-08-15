@@ -24,7 +24,7 @@ class WdRequest {
   }
 
   request<T = any>(config: WdRequestOptions) {
-    return new Promise<T>((reslove, reject) => {
+    return new Promise<T>((resolve, reject) => {
       config.url = this._fetchUrl(config.url)
 
       // 解析query方法
@@ -62,7 +62,7 @@ class WdRequest {
             if (config?.interceptor?.responseSuccessFn) {
               res = config.interceptor.responseSuccessFn(res)
             }
-            reslove(res)
+            resolve(res)
           } catch (error) {
             reject(error)
           }
@@ -128,7 +128,7 @@ class WdRequest {
 
   // 文件上传
   uploadFile<T = any>(config: WdUploadFileOptions) {
-    return new Promise<T>((reslove, reject) => {
+    return new Promise<T>((resolve, reject) => {
       // 实现全局请求拦截
       if (this.config?.interceptor?.requestSuccessFn) {
         config = this.config.interceptor.requestSuccessFn(config)
@@ -148,7 +148,7 @@ class WdRequest {
           if (config?.interceptor?.responseSuccessFn) {
             res = config.interceptor.responseSuccessFn(res)
           }
-          reslove(res)
+          resolve(res)
         },
         fail: (error) => {
           reject(error)
