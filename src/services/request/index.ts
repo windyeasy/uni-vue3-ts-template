@@ -18,7 +18,7 @@ class WdRequest {
     if (url.includes('http')) {
       this.url = url
     } else {
-      this.url = this.config.baseUrl + url
+      this.url = this.config.baseURL + url
     }
     return this.url
   }

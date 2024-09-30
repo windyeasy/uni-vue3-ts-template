@@ -11,9 +11,9 @@ vi.stubGlobal('uni', uni)
 // test WdRequest class
 describe('WdRequest', () => {
   let request: WdRequest
-  const baseUrl = 'https://example.com'
+  const baseURL = 'https://example.com'
   const config: WdRequestConstructorConfig = {
-    baseUrl,
+    baseURL,
     timeout: 3000,
     interceptor: {
       responseSuccessFn: vi.fn((config) => config),
@@ -43,7 +43,7 @@ describe('WdRequest', () => {
   it('should correctly URL without http', async () => {
     const url = '/api/test'
     await request.request({ url })
-    expect(request.url).toBe(baseUrl + url)
+    expect(request.url).toBe(baseURL + url)
   })
   it('当请求超时是否进入catch', async () => {
     uni.request.mockImplementation(({ timeout, success, fail }) => {

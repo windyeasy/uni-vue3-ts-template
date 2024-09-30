@@ -6,7 +6,7 @@ interface IInterceptor {
 
 // 构造函数的配置
 export interface WdRequestConstructorConfig {
-  baseUrl?: string
+  baseURL?: string
   timeout?: number
   interceptor?: IInterceptor
 }
