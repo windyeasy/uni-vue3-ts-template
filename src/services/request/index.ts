@@ -27,7 +27,16 @@ class WdRequest {
     return new Promise<T>((resolve, reject) => {
       config.url = this._fetchUrl(config.url)
 
-      // 解析query方法
+      // 实现全局请求拦截
+      if (this.config?.interceptor?.requestSuccessFn) {
+        config = this.config.interceptor.requestSuccessFn(config)
+      }
+      // 实现局部请求拦截
+      if (config.interceptor?.requestSuccessFn) {
+        config = config.interceptor.requestSuccessFn(config)
+      }
+
+      // 解析query方法，有可能拦截器里面也注入query方法
       if (config.query) {
         const queryStr = qs.stringify(config.query)
         if (config.url.includes('?')) {
@@ -37,14 +46,6 @@ class WdRequest {
         }
       }
 
-      // 实现全局请求拦截
-      if (this.config?.interceptor?.requestSuccessFn) {
-        config = this.config.interceptor.requestSuccessFn(config)
-      }
-      // 实现局部请求拦截
-      if (config.interceptor?.requestSuccessFn) {
-        config = config.interceptor.requestSuccessFn(config)
-      }
       uni.request({
         timeout: this.config.timeout, // 延迟时间
         dataType: 'json',
@@ -135,6 +136,8 @@ class WdRequest {
   // 文件上传
   uploadFile<T = any>(config: WdUploadFileOptions) {
     return new Promise<T>((resolve, reject) => {
+      config.url = this._fetchUrl(config.url)
+
       // 实现全局请求拦截
       if (this.config?.interceptor?.requestSuccessFn) {
         config = this.config.interceptor.requestSuccessFn(config)
@@ -143,9 +146,15 @@ class WdRequest {
       if (config.interceptor?.requestSuccessFn) {
         config = config.interceptor.requestSuccessFn(config)
       }
+
       uni.uploadFile({
         ...config,
         success: (res: any) => {
+          // 将json字符串先转为对象
+          if (res && res.data) {
+            res.data = JSON.parse(res.data)
+          }
+
           // 实现全局响应拦截
           if (this.config?.interceptor?.responseSuccessFn) {
             res = this.config.interceptor.responseSuccessFn(res)
